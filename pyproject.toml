@@ -1,0 +1,144 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pychartai"
+version = "0.4.0"
+description = "AI-powered data analysis and chart generation with 20 chart types, 3 backends, 8 LLM providers, conversation memory, auto-EDA profiling, chart themes, and RestrictedSandbox. Works standalone without pandasai."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+authors = [{ name = "Cem Akpolat", email = "cem.akpolat@eficode.com" }]
+keywords = ["pandas", "llm", "charts", "visualization", "ai", "data-analysis", "pandasai", "seaborn", "plotly", "matplotlib", "ollama", "openai", "skills", "schema", "pipeline", "sandbox"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "scipy>=1.10.0",
+    "openai>=1.3.0",
+    "RestrictedPython>=7.0,<9",
+    "litellm>=1.35.0,<2",
+]
+
+[project.optional-dependencies]
+# Interactive HTML charts + static image export via Plotly (adds ~80 MB for kaleido)
+viz-plotly = [
+    "plotly>=5.0.0",
+    "kaleido>=0.2.1",
+]
+# Database connectors (install as needed)
+db-postgres = [
+    "psycopg2-binary>=2.9.0",
+    "sqlalchemy>=2.0.0",
+]
+db-mysql = [
+    "pymysql>=1.1.0",
+    "sqlalchemy>=2.0.0",
+]
+db-snowflake = [
+    "snowflake-sqlalchemy>=1.5.0",
+]
+db-bigquery = [
+    "google-cloud-bigquery>=3.0.0",
+    "sqlalchemy-bigquery>=1.6.0",
+]
+db-redshift = [
+    "redshift-connector>=2.0.0",
+    "sqlalchemy>=2.0.0",
+]
+db-all = [
+    "psycopg2-binary>=2.9.0",
+    "pymysql>=1.1.0",
+    "snowflake-sqlalchemy>=1.5.0",
+    "google-cloud-bigquery>=3.0.0",
+    "sqlalchemy-bigquery>=1.6.0",
+    "redshift-connector>=2.0.0",
+    "sqlalchemy>=2.0.0",
+]
+# Cloud storage / SaaS connectors (install as needed)
+cloud-s3 = [
+    "boto3>=1.26.0",
+]
+cloud-gcs = [
+    "google-cloud-storage>=2.10.0",
+]
+cloud-azure = [
+    "azure-storage-blob>=12.14.0",
+]
+cloud-gsheets = [
+    "google-api-python-client>=2.80.0",
+    "google-auth>=2.16.0",
+]
+cloud-all = [
+    "boto3>=1.26.0",
+    "google-cloud-storage>=2.10.0",
+    "azure-storage-blob>=12.14.0",
+    "google-api-python-client>=2.80.0",
+    "google-auth>=2.16.0",
+]
+pandasai = [
+    "pandasai>=3.0.0",
+]
+api = [
+    "fastapi>=0.100.0",
+    "uvicorn[standard]>=0.20.0",
+    "python-multipart>=0.0.6",
+]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-cov>=4.1.0",
+    "pandasai>=3.0.0",
+    "openpyxl>=3.1.0",
+    "pyarrow>=14.0.0",
+    "plotly>=5.0.0",
+    "kaleido>=0.2.1",
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings[python]>=0.24.0",
+]
+
+[project.urls]
+Repository = "https://github.com/cemakpolat/pychartai"
+Homepage = "https://github.com/cemakpolat/pychartai"
+"Bug Tracker" = "https://github.com/cemakpolat/pychartai/issues"
+Changelog = "https://github.com/cemakpolat/pychartai/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pychartai*"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

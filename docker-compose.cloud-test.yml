@@ -1,0 +1,45 @@
+# Local cloud emulator stack for integration testing the cloud connectors.
+#
+#   docker compose -f docker-compose.cloud-test.yml up -d
+#   PYCHARTAI_CLOUD_IT=1 pytest tests/integration/test_cloud_integration.py -v
+#   docker compose -f docker-compose.cloud-test.yml down -v
+#
+# Services:
+#   minio          — S3-compatible object store        (port 9000)
+#   azurite        — Azure Blob Storage emulator        (port 10000)
+#   fake-gcs       — Google Cloud Storage emulator      (port 4443)
+#
+# Google Sheets has no local emulator; it stays mock-only in unit tests.
+
+services:
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    command: azurite-blob --blobHost 0.0.0.0 --blobPort 10000
+    ports:
+      - "10000:10000"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "10000"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+  fake-gcs:
+    image: fsouza/fake-gcs-server:latest
+    command: -scheme http -port 4443 -public-host localhost:4443
+    ports:
+      - "4443:4443"

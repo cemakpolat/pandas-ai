@@ -1,0 +1,65 @@
+site_name: PyChartAI
+site_description: AI-powered data analysis and chart generation for Python
+site_author: Cem Akpolat
+site_url: https://cemakpolat.github.io/pychartai/
+repo_url: https://github.com/cemakpolat/pychartai
+repo_name: cemakpolat/pychartai
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - toc.integrate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: docs/getting-started.md
+      - Installation: docs/installation.md
+      - Migration from pandasai: docs/migration.md
+  - Guides:
+      - Execution Modes: docs/MODES_CHEATSHEET.md
+      - LLM Providers: docs/MULTI_PROVIDER_GUIDE.md
+  - API Reference: docs/api_reference.md
+  - Community:
+      - Contributing: CONTRIBUTING.md
+      - Security Policy: SECURITY.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Changelog: CHANGELOG.md
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cemakpolat/pychartai

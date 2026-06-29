@@ -1,0 +1,2 @@
+pychartai
+pychartai_core
